@@ -1,12 +1,12 @@
 <project_specification>
-  <project_name>Claude.ai Clone - AI Chat Interface</project_name>
+  <project_name>BudgetAI - Smart Expense Tracker with AI Categorization</project_name>
 
   <overview>
-    Build a fully functional clone of claude.ai, Anthropic's conversational AI interface. The application should
-    provide a clean, modern chat interface for interacting with Claude via the API, including features like
-    conversation management, artifact rendering, project organization, multiple model selection, and advanced
-    settings. The UI should closely match claude.ai's design using Tailwind CSS with a focus on excellent
-    user experience and responsive design.
+    Build a comprehensive personal finance application with AI-powered expense categorization. The application
+    leverages Claude API to automatically categorize transactions, analyze spending patterns, and provide
+    intelligent budget recommendations. Features include multi-account management, budget tracking, savings
+    goals, receipt scanning, and natural language queries for financial insights. The UI should be clean,
+    modern, and finance-focused using Tailwind CSS with excellent data visualization and responsive design.
   </overview>
 
   <technology_stack>
@@ -18,19 +18,19 @@
       <styling>Tailwind CSS (via CDN)</styling>
       <state_management>React hooks and context</state_management>
       <routing>React Router for navigation</routing>
-      <markdown>React Markdown for message rendering</markdown>
-      <code_highlighting>Syntax highlighting for code blocks</code_highlighting>
+      <charts>Recharts for financial visualizations</charts>
+      <date_handling>date-fns for date manipulation</date_handling>
       <port>Only launch on port {frontend_port}</port>
     </frontend>
     <backend>
       <runtime>Node.js with Express</runtime>
       <database>SQLite with better-sqlite3</database>
-      <api_integration>Claude API for chat completions</api_integration>
-      <streaming>Server-Sent Events for streaming responses</streaming>
+      <api_integration>Claude API for AI categorization and insights</api_integration>
+      <file_processing>Multer for receipt uploads, csv-parser for imports</file_processing>
     </backend>
     <communication>
       <api>RESTful endpoints</api>
-      <streaming>SSE for real-time message streaming</streaming>
+      <streaming>SSE for real-time AI insights generation</streaming>
       <claude_api>Integration with Claude API using Anthropic SDK</claude_api>
     </communication>
   </technology_stack>
@@ -45,155 +45,182 @@
   </prerequisites>
 
   <core_features>
-    <chat_interface>
-      - Clean, centered chat layout with message bubbles
-      - Streaming message responses with typing indicator
-      - Markdown rendering with proper formatting
-      - Code blocks with syntax highlighting and copy button
-      - LaTeX/math equation rendering
-      - Image upload and display in messages
-      - Multi-turn conversations with context
-      - Message editing and regeneration
-      - Stop generation button during streaming
-      - Input field with auto-resize textarea
-      - Character count and token estimation
-      - Keyboard shortcuts (Enter to send, Shift+Enter for newline)
-    </chat_interface>
+    <dashboard>
+      - Financial health overview with key metrics
+      - Net worth calculation (assets - liabilities)
+      - Monthly income vs expenses comparison
+      - Budget progress indicators for each category
+      - Recent transactions list with quick actions
+      - Spending trend charts (weekly, monthly, yearly)
+      - Upcoming bills and reminders widget
+      - Savings goals progress cards
+      - AI-generated monthly insights summary
+      - Quick transaction entry button
+    </dashboard>
 
-    <artifacts>
-      - Artifact detection and rendering in side panel
-      - Code artifact viewer with syntax highlighting
-      - HTML/SVG preview with live rendering
-      - React component preview
-      - Mermaid diagram rendering
-      - Text document artifacts
-      - Artifact editing and re-prompting
-      - Full-screen artifact view
-      - Download artifact content
-      - Artifact versioning and history
-    </artifacts>
+    <ai_expense_categorization>
+      - Automatic transaction categorization using Claude API
+      - Merchant name recognition and mapping
+      - Confidence scores for AI predictions (high/medium/low)
+      - User correction feedback loop for learning
+      - Bulk categorization for imported transactions
+      - Smart category suggestions based on description
+      - Pattern detection for recurring expenses
+      - Anomaly detection for unusual spending
+      - Natural language queries ("How much did I spend on coffee this month?")
+      - AI-powered spending insights and recommendations
+      - Receipt OCR with automatic data extraction
+      - Category mapping rules management
+    </ai_expense_categorization>
 
-    <conversation_management>
-      - Create new conversations
-      - Conversation list in sidebar
-      - Rename conversations
-      - Delete conversations
-      - Search conversations by title/content
-      - Pin important conversations
-      - Archive conversations
-      - Conversation folders/organization
-      - Duplicate conversation
-      - Export conversation (JSON, Markdown, PDF)
-      - Conversation timestamps (created, last updated)
-      - Unread message indicators
-    </conversation_management>
+    <transaction_management>
+      - Add transactions manually (income/expense/transfer)
+      - Transaction list with infinite scroll
+      - Advanced filtering (date, category, account, amount range)
+      - Search transactions by description, merchant, notes
+      - Edit and delete transactions
+      - Split transactions across multiple categories
+      - Attach receipts/images to transactions
+      - Transaction tags for custom organization
+      - Bulk edit and categorize
+      - Duplicate transaction for recurring entries
+      - Transaction templates for frequent expenses
+      - Export transactions (CSV, PDF)
+    </transaction_management>
 
-    <projects>
-      - Create projects to group related conversations
-      - Project knowledge base (upload documents)
-      - Project-specific custom instructions
-      - Share projects with team (mock feature)
-      - Project settings and configuration
-      - Move conversations between projects
-      - Project templates
-      - Project analytics (usage stats)
-    </projects>
+    <budget_management>
+      - Create monthly budgets by category
+      - Visual progress bars with color coding
+      - Rollover unspent budget option
+      - Budget vs actual comparison
+      - AI-suggested budget amounts based on history
+      - Budget alerts at thresholds (50%, 75%, 90%, 100%)
+      - Historical budget performance tracking
+      - Budget templates (conservative, balanced, flexible)
+      - Category grouping for budget overview
+      - Annual budget planning view
+    </budget_management>
 
-    <model_selection>
-      - Model selector dropdown with the following models:
-        - Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) - default
-        - Claude Haiku 4.5 (claude-haiku-4-5-20251001)
-        - Claude Opus 4.1 (claude-opus-4-1-20250805)
-      - Model capabilities display
-      - Context window indicator
-      - Model-specific pricing info (display only)
-      - Switch models mid-conversation
-      - Model comparison view
-    </model_selection>
+    <accounts_management>
+      - Multiple account types (checking, savings, credit card, cash, investment)
+      - Account balances dashboard
+      - Manual balance reconciliation
+      - Transfer between accounts
+      - Account-specific transaction views
+      - Credit card payment tracking
+      - Account icons and color coding
+      - Archive inactive accounts
+      - Starting balance configuration
+      - Account groups (e.g., "Personal", "Business")
+    </accounts_management>
 
-    <custom_instructions>
-      - Global custom instructions
-      - Project-specific custom instructions
-      - Conversation-specific system prompts
-      - Custom instruction templates
-      - Preview how instructions affect responses
-    </custom_instructions>
+    <savings_goals>
+      - Create savings goals with target amount and date
+      - Visual progress tracking with percentage
+      - Automatic savings suggestions from AI
+      - Allocate funds from transactions to goals
+      - Goal categories (Emergency Fund, Vacation, Purchase, etc.)
+      - Monthly contribution tracking
+      - Goal achievement celebrations
+      - Pause/resume goals
+      - Goal priority ordering
+      - Projected completion date calculator
+    </savings_goals>
+
+    <recurring_transactions>
+      - Auto-detect recurring patterns with AI
+      - Manual recurring transaction setup
+      - Frequency options (daily, weekly, bi-weekly, monthly, yearly)
+      - Skip next occurrence option
+      - Edit series or single instance
+      - Upcoming recurring transactions calendar
+      - Bill reminder notifications
+      - Auto-categorization for recurring items
+      - End date or occurrence limit options
+    </recurring_transactions>
+
+    <reports_analytics>
+      - Spending by category pie chart
+      - Income vs expense bar charts
+      - Spending trends over time (line charts)
+      - Category comparison month-over-month
+      - Cash flow statement
+      - Net worth trend over time
+      - Top spending categories ranking
+      - Merchant spending analysis
+      - Day of week spending patterns
+      - Custom date range reports
+      - Export reports as PDF
+      - Year-end financial summary
+    </reports_analytics>
+
+    <import_export>
+      - CSV import with column mapping
+      - Bank statement import (common formats)
+      - AI-assisted column detection
+      - Duplicate transaction detection
+      - Import preview and validation
+      - Batch AI categorization on import
+      - Export all data (backup)
+      - Export to CSV, JSON, PDF formats
+      - Import from popular budget apps format
+    </import_export>
+
+    <categories_management>
+      - Default category hierarchy (Income, Housing, Transportation, etc.)
+      - Custom category creation
+      - Category icons selection (emoji or icon library)
+      - Category color assignment
+      - Sub-categories support
+      - Merge categories
+      - Hide unused categories
+      - Category spending limits (separate from budgets)
+      - Category ordering/priority
+    </categories_management>
+
+    <notifications_alerts>
+      - Budget threshold alerts
+      - Large transaction alerts
+      - Bill due reminders
+      - Goal milestone notifications
+      - Weekly spending summary
+      - Unusual activity alerts (AI-powered)
+      - Low balance warnings
+      - Notification preferences management
+      - In-app notification center
+    </notifications_alerts>
 
     <settings_preferences>
       - Theme selection (Light, Dark, Auto)
-      - Font size adjustment
-      - Message density (compact, comfortable, spacious)
-      - Code theme selection
+      - Currency selection and formatting
+      - Date format preferences
+      - First day of week setting
+      - Default account selection
+      - AI categorization confidence threshold
+      - Notification preferences
+      - Data privacy settings
+      - Export personal data
+      - Delete account and data
       - Language preferences
-      - Accessibility options
-      - Keyboard shortcuts reference
-      - Data export options
-      - Privacy settings
-      - API key management
     </settings_preferences>
-
-    <advanced_features>
-      - Temperature control slider
-      - Max tokens adjustment
-      - Top-p (nucleus sampling) control
-      - System prompt override
-      - Thinking/reasoning mode toggle
-      - Multi-modal input (text + images)
-      - Voice input (optional, mock UI)
-      - Response suggestions
-      - Related prompts
-      - Conversation branching
-    </advanced_features>
-
-    <collaboration>
-      - Share conversation via link (read-only)
-      - Export conversation formats
-      - Conversation templates
-      - Prompt library
-      - Share artifacts
-      - Team workspaces (mock UI)
-    </collaboration>
-
-    <search_discovery>
-      - Search across all conversations
-      - Filter by project, date, model
-      - Prompt library with categories
-      - Example conversations
-      - Quick actions menu
-      - Command palette (Cmd/Ctrl+K)
-    </search_discovery>
-
-    <usage_tracking>
-      - Token usage display per message
-      - Conversation cost estimation
-      - Daily/monthly usage dashboard
-      - Usage limits and warnings
-      - API quota tracking
-    </usage_tracking>
-
-    <onboarding>
-      - Welcome screen for new users
-      - Feature tour highlights
-      - Example prompts to get started
-      - Quick tips and best practices
-      - Keyboard shortcuts tutorial
-    </onboarding>
 
     <accessibility>
       - Full keyboard navigation
-      - Screen reader support
-      - ARIA labels and roles
+      - Screen reader support with ARIA labels
       - High contrast mode
       - Focus management
       - Reduced motion support
+      - Font size adjustment
+      - Color blind friendly palette options
     </accessibility>
 
     <responsive_design>
       - Mobile-first responsive layout
       - Touch-optimized interface
-      - Collapsible sidebar on mobile
-      - Swipe gestures for navigation
-      - Adaptive artifact display
+      - Swipe gestures for transaction actions
+      - Bottom navigation on mobile
+      - Collapsible sidebar on tablet/desktop
+      - Quick add transaction floating button (mobile)
       - Progressive Web App (PWA) support
     </responsive_design>
   </core_features>
@@ -201,332 +228,475 @@
   <database_schema>
     <tables>
       <users>
-        - id, email, name, avatar_url
-        - created_at, last_login
-        - preferences (JSON: theme, font_size, etc.)
-        - custom_instructions
+        - id (PRIMARY KEY)
+        - email
+        - name
+        - avatar_url
+        - created_at
+        - last_login
+        - preferences (JSON: theme, currency, date_format, language)
+        - notification_settings (JSON)
       </users>
 
-      <projects>
-        - id, user_id, name, description, color
-        - custom_instructions, knowledge_base_path
-        - created_at, updated_at
-        - is_archived, is_pinned
-      </projects>
+      <accounts>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - name
+        - type (checking, savings, credit_card, cash, investment)
+        - currency
+        - starting_balance
+        - current_balance
+        - icon
+        - color
+        - institution_name
+        - account_number_last4
+        - credit_limit (for credit cards)
+        - is_archived
+        - created_at
+        - updated_at
+      </accounts>
 
-      <conversations>
-        - id, user_id, project_id, title
-        - model, created_at, updated_at, last_message_at
-        - is_archived, is_pinned, is_deleted
-        - settings (JSON: temperature, max_tokens, etc.)
-        - token_count, message_count
-      </conversations>
+      <categories>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - parent_id (FOREIGN KEY, nullable, for subcategories)
+        - name
+        - type (income, expense)
+        - icon
+        - color
+        - is_system (default categories)
+        - is_hidden
+        - sort_order
+        - created_at
+      </categories>
 
-      <messages>
-        - id, conversation_id, role (user/assistant/system)
-        - content, created_at, edited_at
-        - tokens, finish_reason
-        - images (JSON array of image data)
-        - parent_message_id (for branching)
-      </messages>
+      <transactions>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - account_id (FOREIGN KEY)
+        - category_id (FOREIGN KEY)
+        - type (income, expense, transfer)
+        - amount
+        - currency
+        - description
+        - merchant_name
+        - date
+        - notes
+        - receipt_url
+        - is_recurring
+        - recurring_id (FOREIGN KEY, nullable)
+        - ai_categorized (boolean)
+        - ai_confidence (high, medium, low)
+        - original_category_id (before user correction)
+        - tags (JSON array)
+        - transfer_to_account_id (FOREIGN KEY, for transfers)
+        - created_at
+        - updated_at
+      </transactions>
 
-      <artifacts>
-        - id, message_id, conversation_id
-        - type (code/html/svg/react/mermaid/text)
-        - title, identifier, language
-        - content, version
-        - created_at, updated_at
-      </artifacts>
+      <budgets>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - category_id (FOREIGN KEY)
+        - amount
+        - period (monthly, yearly)
+        - start_date
+        - end_date (nullable for ongoing)
+        - rollover_enabled
+        - alert_threshold (percentage)
+        - created_at
+        - updated_at
+      </budgets>
 
-      <shared_conversations>
-        - id, conversation_id, share_token
-        - created_at, expires_at, view_count
-        - is_public
-      </shared_conversations>
+      <savings_goals>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - name
+        - target_amount
+        - current_amount
+        - target_date
+        - category (emergency, vacation, purchase, retirement, other)
+        - icon
+        - color
+        - priority
+        - is_completed
+        - is_paused
+        - created_at
+        - updated_at
+      </savings_goals>
 
-      <prompt_library>
-        - id, user_id, title, description
-        - prompt_template, category, tags (JSON)
-        - is_public, usage_count
-        - created_at, updated_at
-      </prompt_library>
+      <goal_contributions>
+        - id (PRIMARY KEY)
+        - goal_id (FOREIGN KEY)
+        - transaction_id (FOREIGN KEY, nullable)
+        - amount
+        - date
+        - notes
+        - created_at
+      </goal_contributions>
 
-      <conversation_folders>
-        - id, user_id, project_id, name, parent_folder_id
-        - created_at, position
-      </conversation_folders>
-
-      <conversation_folder_items>
-        - id, folder_id, conversation_id
-      </conversation_folder_items>
-
-      <usage_tracking>
-        - id, user_id, conversation_id, message_id
-        - model, input_tokens, output_tokens
-        - cost_estimate, created_at
-      </usage_tracking>
-
-      <api_keys>
-        - id, user_id, key_name, api_key_hash
-        - created_at, last_used_at
+      <recurring_transactions>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - account_id (FOREIGN KEY)
+        - category_id (FOREIGN KEY)
+        - type (income, expense)
+        - amount
+        - description
+        - merchant_name
+        - frequency (daily, weekly, bi-weekly, monthly, yearly)
+        - start_date
+        - end_date (nullable)
+        - next_occurrence
+        - last_occurrence
+        - occurrence_count
+        - max_occurrences (nullable)
         - is_active
-      </api_keys>
+        - auto_create (boolean)
+        - remind_days_before
+        - created_at
+        - updated_at
+      </recurring_transactions>
+
+      <category_rules>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - category_id (FOREIGN KEY)
+        - match_type (contains, starts_with, exact, regex)
+        - match_value
+        - priority
+        - is_active
+        - created_at
+      </category_rules>
+
+      <ai_category_mappings>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - merchant_pattern
+        - category_id (FOREIGN KEY)
+        - confidence_boost (decimal)
+        - usage_count
+        - created_at
+        - updated_at
+      </ai_category_mappings>
+
+      <notifications>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - type (budget_alert, bill_reminder, goal_milestone, large_transaction, weekly_summary)
+        - title
+        - message
+        - data (JSON)
+        - is_read
+        - created_at
+      </notifications>
+
+      <import_history>
+        - id (PRIMARY KEY)
+        - user_id (FOREIGN KEY)
+        - filename
+        - source (csv, bank_statement, app_import)
+        - transactions_imported
+        - transactions_skipped (duplicates)
+        - status (completed, failed, partial)
+        - error_message
+        - created_at
+      </import_history>
     </tables>
   </database_schema>
 
-  <api_endpoints_summary>
+  <api_endpoints>
     <authentication>
-      - POST /api/auth/login
-      - POST /api/auth/logout
-      - GET /api/auth/me
-      - PUT /api/auth/profile
+      POST /api/auth/register - Create new user
+      POST /api/auth/login - User login
+      POST /api/auth/logout - User logout
+      GET /api/auth/me - Get current user
+      PUT /api/auth/profile - Update profile
     </authentication>
 
-    <conversations>
-      - GET /api/conversations
-      - POST /api/conversations
-      - GET /api/conversations/:id
-      - PUT /api/conversations/:id
-      - DELETE /api/conversations/:id
-      - POST /api/conversations/:id/duplicate
-      - POST /api/conversations/:id/export
-      - PUT /api/conversations/:id/archive
-      - PUT /api/conversations/:id/pin
-      - POST /api/conversations/:id/branch
-    </conversations>
+    <accounts>
+      GET /api/accounts - List all accounts
+      POST /api/accounts - Create account
+      GET /api/accounts/:id - Get account details
+      PUT /api/accounts/:id - Update account
+      DELETE /api/accounts/:id - Archive account
+      POST /api/accounts/:id/reconcile - Reconcile balance
+    </accounts>
 
-    <messages>
-      - GET /api/conversations/:id/messages
-      - POST /api/conversations/:id/messages
-      - PUT /api/messages/:id
-      - DELETE /api/messages/:id
-      - POST /api/messages/:id/regenerate
-      - GET /api/messages/stream (SSE endpoint)
-    </messages>
+    <transactions>
+      GET /api/transactions - List transactions (with filters)
+      POST /api/transactions - Create transaction
+      GET /api/transactions/:id - Get transaction
+      PUT /api/transactions/:id - Update transaction
+      DELETE /api/transactions/:id - Delete transaction
+      POST /api/transactions/bulk - Bulk create/update
+      POST /api/transactions/:id/split - Split transaction
+      POST /api/transactions/import - Import from CSV
+      GET /api/transactions/export - Export transactions
+    </transactions>
 
-    <artifacts>
-      - GET /api/conversations/:id/artifacts
-      - GET /api/artifacts/:id
-      - PUT /api/artifacts/:id
-      - DELETE /api/artifacts/:id
-      - POST /api/artifacts/:id/fork
-      - GET /api/artifacts/:id/versions
-    </artifacts>
+    <categories>
+      GET /api/categories - List categories
+      POST /api/categories - Create category
+      PUT /api/categories/:id - Update category
+      DELETE /api/categories/:id - Delete/hide category
+      POST /api/categories/merge - Merge categories
+    </categories>
 
-    <projects>
-      - GET /api/projects
-      - POST /api/projects
-      - GET /api/projects/:id
-      - PUT /api/projects/:id
-      - DELETE /api/projects/:id
-      - POST /api/projects/:id/knowledge
-      - GET /api/projects/:id/conversations
-      - PUT /api/projects/:id/settings
-    </projects>
+    <budgets>
+      GET /api/budgets - List budgets
+      POST /api/budgets - Create budget
+      PUT /api/budgets/:id - Update budget
+      DELETE /api/budgets/:id - Delete budget
+      GET /api/budgets/summary - Budget vs actual summary
+    </budgets>
 
-    <sharing>
-      - POST /api/conversations/:id/share
-      - GET /api/share/:token
-      - DELETE /api/share/:token
-      - PUT /api/share/:token/settings
-    </sharing>
+    <goals>
+      GET /api/goals - List savings goals
+      POST /api/goals - Create goal
+      PUT /api/goals/:id - Update goal
+      DELETE /api/goals/:id - Delete goal
+      POST /api/goals/:id/contribute - Add contribution
+    </goals>
 
-    <prompts>
-      - GET /api/prompts/library
-      - POST /api/prompts/library
-      - GET /api/prompts/:id
-      - PUT /api/prompts/:id
-      - DELETE /api/prompts/:id
-      - GET /api/prompts/categories
-      - GET /api/prompts/examples
-    </prompts>
+    <recurring>
+      GET /api/recurring - List recurring transactions
+      POST /api/recurring - Create recurring
+      PUT /api/recurring/:id - Update recurring
+      DELETE /api/recurring/:id - Delete recurring
+      POST /api/recurring/:id/skip - Skip next occurrence
+    </recurring>
 
-    <search>
-      - GET /api/search/conversations?q=query
-      - GET /api/search/messages?q=query
-      - GET /api/search/artifacts?q=query
-      - GET /api/search/prompts?q=query
-    </search>
+    <ai>
+      POST /api/ai/categorize - Categorize single transaction
+      POST /api/ai/categorize-bulk - Bulk categorization
+      POST /api/ai/analyze-receipt - OCR and extract receipt data
+      GET /api/ai/insights - Get AI spending insights
+      POST /api/ai/query - Natural language query
+      GET /api/ai/suggestions - Budget suggestions
+      POST /api/ai/detect-patterns - Detect recurring patterns
+    </ai>
 
-    <folders>
-      - GET /api/folders
-      - POST /api/folders
-      - PUT /api/folders/:id
-      - DELETE /api/folders/:id
-      - POST /api/folders/:id/items
-      - DELETE /api/folders/:id/items/:conversationId
-    </folders>
+    <reports>
+      GET /api/reports/spending - Spending by category
+      GET /api/reports/trends - Spending trends
+      GET /api/reports/cashflow - Cash flow report
+      GET /api/reports/networth - Net worth over time
+      GET /api/reports/merchants - Top merchants
+      GET /api/reports/summary - Period summary
+    </reports>
 
-    <usage>
-      - GET /api/usage/daily
-      - GET /api/usage/monthly
-      - GET /api/usage/by-model
-      - GET /api/usage/conversations/:id
-    </usage>
-
-    <settings>
-      - GET /api/settings
-      - PUT /api/settings
-      - GET /api/settings/custom-instructions
-      - PUT /api/settings/custom-instructions
-    </settings>
-
-    <claude_api>
-      - POST /api/claude/chat (proxy to Claude API)
-      - POST /api/claude/chat/stream (streaming proxy)
-      - GET /api/claude/models
-      - POST /api/claude/images/upload
-    </claude_api>
-  </api_endpoints_summary>
-
-  <ui_layout>
-    <main_structure>
-      - Three-column layout: sidebar (conversations), main (chat), panel (artifacts)
-      - Collapsible sidebar with resize handle
-      - Responsive breakpoints: mobile (single column), tablet (two column), desktop (three column)
-      - Persistent header with project/model selector
-      - Bottom input area with send button and options
-    </main_structure>
-
-    <sidebar_left>
-      - New chat button (prominent)
-      - Project selector dropdown
-      - Search conversations input
-      - Conversations list (grouped by date: Today, Yesterday, Previous 7 days, etc.)
-      - Folder tree view (collapsible)
-      - Settings gear icon at bottom
-      - User profile at bottom
-    </sidebar_left>
-
-    <main_chat_area>
-      - Conversation title (editable inline)
-      - Model selector badge
-      - Message history (scrollable)
-      - Welcome screen for new conversations
-      - Suggested prompts (empty state)
-      - Input area with formatting toolbar
-      - Attachment button for images
-      - Send button with loading state
-      - Stop generation button
-    </main_chat_area>
-
-    <artifacts_panel>
-      - Artifact header with title and type badge
-      - Code editor or preview pane
-      - Tabs for multiple artifacts
-      - Full-screen toggle
-      - Download button
-      - Edit/Re-prompt button
-      - Version selector
-      - Close panel button
-    </artifacts_panel>
-
-    <modals_overlays>
-      - Settings modal (tabbed interface)
-      - Share conversation modal
-      - Export options modal
-      - Project settings modal
-      - Prompt library modal
-      - Command palette overlay
-      - Keyboard shortcuts reference
-    </modals_overlays>
-  </ui_layout>
+    <notifications>
+      GET /api/notifications - List notifications
+      PUT /api/notifications/:id/read - Mark as read
+      PUT /api/notifications/read-all - Mark all as read
+      DELETE /api/notifications/:id - Delete notification
+    </notifications>
+  </api_endpoints>
 
   <design_system>
     <color_palette>
-      - Primary: Orange/amber accent (#CC785C claude-style)
-      - Background: White (light mode), Dark gray (#1A1A1A dark mode)
-      - Surface: Light gray (#F5F5F5 light), Darker gray (#2A2A2A dark)
-      - Text: Near black (#1A1A1A light), Off-white (#E5E5E5 dark)
-      - Borders: Light gray (#E5E5E5 light), Dark gray (#404040 dark)
-      - Code blocks: Monaco editor theme
+      <finance_colors>
+        - Income/Positive: Emerald-500 (#10B981), Emerald-600 (#059669)
+        - Expense/Negative: Rose-500 (#F43F5E), Rose-600 (#E11D48)
+        - Transfer/Neutral: Blue-500 (#3B82F6), Blue-600 (#2563EB)
+        - Warning: Amber-500 (#F59E0B), Amber-600 (#D97706)
+      </finance_colors>
+      <light_mode>
+        - Background: White (#FFFFFF), Gray-50 (#F9FAFB)
+        - Surface: White (#FFFFFF)
+        - Border: Gray-200 (#E5E7EB)
+        - Text Primary: Gray-900 (#111827)
+        - Text Secondary: Gray-600 (#4B5563)
+        - Text Muted: Gray-400 (#9CA3AF)
+      </light_mode>
+      <dark_mode>
+        - Background: Gray-950 (#030712), Gray-900 (#111827)
+        - Surface: Gray-800 (#1F2937)
+        - Border: Gray-700 (#374151)
+        - Text Primary: Gray-100 (#F3F4F6)
+        - Text Secondary: Gray-400 (#9CA3AF)
+        - Text Muted: Gray-500 (#6B7280)
+      </dark_mode>
+      <category_colors>
+        - Housing: Violet-500 (#8B5CF6)
+        - Transportation: Sky-500 (#0EA5E9)
+        - Food: Orange-500 (#F97316)
+        - Shopping: Pink-500 (#EC4899)
+        - Entertainment: Purple-500 (#A855F7)
+        - Health: Teal-500 (#14B8A6)
+        - Bills: Slate-500 (#64748B)
+        - Income: Emerald-500 (#10B981)
+      </category_colors>
     </color_palette>
 
     <typography>
-      - Sans-serif system font stack (Inter, SF Pro, Roboto, system-ui)
-      - Headings: font-semibold
-      - Body: font-normal, leading-relaxed
-      - Code: Monospace (JetBrains Mono, Consolas, Monaco)
-      - Message text: text-base (16px), comfortable line-height
+      - Font Family: Inter, system-ui, sans-serif
+      - Monospace: JetBrains Mono (for amounts)
+      - Headings: font-semibold, tracking-tight
+      - Body: font-normal, text-base
+      - Amount Display: font-mono, tabular-nums
+      - Small Text: text-sm, text-gray-600
     </typography>
 
     <components>
-      <message_bubble>
-        - User messages: Right-aligned, subtle background
-        - Assistant messages: Left-aligned, no background
-        - Markdown formatting with proper spacing
-        - Inline code with bg-gray-100 background
-        - Code blocks with syntax highlighting
-        - Copy button on code blocks
-      </message_bubble>
+      <transaction_row>
+        - Category icon with color background
+        - Merchant/description text (truncate on overflow)
+        - Category pill badge
+        - Date in relative format ("Today", "Yesterday", "Dec 5")
+        - Amount right-aligned with +/- color coding
+        - Hover: subtle background, show quick actions
+      </transaction_row>
+
+      <budget_progress>
+        - Category name with icon
+        - Progress bar with gradient fill
+        - Spent vs Budget text
+        - Percentage badge (green/yellow/red based on usage)
+        - Click to expand for details
+      </budget_progress>
+
+      <account_card>
+        - Account icon and name
+        - Institution name (subtle)
+        - Current balance (large, prominent)
+        - Account type badge
+        - Last updated timestamp
+      </account_card>
+
+      <goal_card>
+        - Goal name with icon
+        - Circular progress indicator
+        - Current amount / Target amount
+        - Days remaining or projected date
+        - Quick contribute button
+      </goal_card>
+
+      <amount_input>
+        - Currency symbol prefix
+        - Numeric input with formatting
+        - +/- toggle for income/expense
+        - Real-time formatting (comma separators)
+      </amount_input>
+
+      <category_selector>
+        - Grouped by type (Income/Expense)
+        - Search/filter categories
+        - Recent categories section
+        - Icon + name display
+        - AI suggestion highlight
+      </category_selector>
+
+      <date_picker>
+        - Calendar popup
+        - Quick options (Today, Yesterday, Last week)
+        - Range selection for filters
+        - Month/year navigation
+      </date_picker>
+
+      <charts>
+        - Pie chart: Category breakdown with legend
+        - Bar chart: Monthly comparison
+        - Line chart: Trend over time
+        - Donut chart: Budget utilization
+        - Consistent color coding with categories
+      </charts>
 
       <buttons>
-        - Primary: Orange/amber background, white text, rounded
+        - Primary: Emerald background for positive actions
+        - Danger: Rose background for destructive actions
         - Secondary: Border style with hover fill
-        - Icon buttons: Square with hover background
-        - Disabled state: Reduced opacity, no pointer events
+        - Ghost: Text only with hover background
+        - Icon buttons: Rounded with tooltips
       </buttons>
 
-      <inputs>
-        - Rounded borders with focus ring
-        - Textarea auto-resize
-        - Placeholder text in gray
-        - Error states in red
-        - Character counter
-      </inputs>
-
       <cards>
-        - Subtle border or shadow
-        - Rounded corners (8px)
+        - Rounded corners (12px)
+        - Subtle shadow on light, border on dark
         - Padding: p-4 to p-6
-        - Hover state: slight shadow increase
+        - Header with title and actions
+        - Hover state: slight lift
       </cards>
     </components>
 
     <animations>
       - Smooth transitions (150-300ms)
-      - Fade in for new messages
-      - Slide in for sidebar
-      - Typing indicator animation
-      - Loading spinner for generation
-      - Skeleton loaders for content
+      - Number counting animation for totals
+      - Progress bar fill animation
+      - Slide in for modals
+      - Fade for notifications
+      - Skeleton loaders for data
+      - Confetti for goal completion
     </animations>
   </design_system>
 
   <key_interactions>
-    <message_flow>
-      1. User types message in input field
-      2. Optional: Attach images via button
-      3. Click send or press Enter
-      4. Message appears in chat immediately
-      5. Typing indicator shows while waiting
-      6. Response streams in word by word
-      7. Code blocks render with syntax highlighting
-      8. Artifacts detected and rendered in side panel
-      9. Message complete, enable regenerate option
-    </message_flow>
+    <add_transaction_flow>
+      1. Click "Add Transaction" button (or use keyboard shortcut)
+      2. Modal opens with amount input focused
+      3. Enter amount, toggle +/- for income/expense
+      4. Select or search account
+      5. Type description - AI suggests category in real-time
+      6. Accept AI category or select manually
+      7. Optional: Add date, notes, tags, receipt
+      8. Click Save - transaction added with animation
+      9. Dashboard and budgets update immediately
+    </add_transaction_flow>
 
-    <artifact_flow>
-      1. Assistant generates artifact in response
-      2. Artifact panel slides in from right
-      3. Content renders (code with highlighting or live preview)
-      4. User can edit artifact inline
-      5. "Re-prompt" button to iterate with Claude
-      6. Download or copy artifact content
-      7. Full-screen mode for detailed work
-      8. Close panel to return to chat focus
-    </artifact_flow>
+    <ai_categorization_flow>
+      1. User imports CSV or enters transaction
+      2. AI analyzes description and merchant name
+      3. Category assigned with confidence indicator
+      4. User sees category pill with AI badge
+      5. User can accept (builds learning) or change
+      6. If changed, AI records correction for future
+      7. Bulk import shows categorization summary
+      8. User can review and adjust batch assignments
+    </ai_categorization_flow>
 
-    <conversation_management>
-      1. Click "New Chat" to start fresh conversation
-      2. Conversations auto-save with first message
-      3. Auto-generate title from first exchange
-      4. Click title to rename inline
-      5. Drag conversations into folders
-      6. Right-click for context menu (pin, archive, delete, export)
-      7. Search filters conversations in real-time
-      8. Click conversation to switch context
-    </conversation_management>
+    <budget_creation_flow>
+      1. Navigate to Budgets section
+      2. Click "Create Budget"
+      3. Select category (filter available categories)
+      4. AI suggests amount based on past spending
+      5. User sets budget amount and period
+      6. Configure alerts (optional)
+      7. Enable rollover (optional)
+      8. Save budget - appears in dashboard
+    </budget_creation_flow>
+
+    <natural_language_query_flow>
+      1. Click search bar or use command palette
+      2. Type natural language query
+      3. AI processes and interprets request
+      4. Results displayed:
+         - Single value: Shows answer prominently
+         - List: Shows filtered transactions
+         - Comparison: Shows chart visualization
+      5. User can save query as custom report
+    </natural_language_query_flow>
+
+    <receipt_scanning_flow>
+      1. Click receipt icon or drag-drop image
+      2. Image uploaded, processing indicator shown
+      3. AI extracts: merchant, amount, date, items
+      4. Pre-fills transaction form
+      5. AI suggests category based on merchant
+      6. User reviews and adjusts if needed
+      7. Receipt attached to saved transaction
+    </receipt_scanning_flow>
+
+    <dashboard_interaction>
+      1. Overview cards show key metrics
+      2. Click metric to drill down
+      3. Budget bars show category status
+      4. Click budget to see transactions
+      5. Recent transactions with quick edit
+      6. Swipe/click to categorize uncategorized
+      7. AI insights panel with recommendations
+      8. Quick actions for common tasks
+    </dashboard_interaction>
   </key_interactions>
 
   <implementation_steps>
@@ -534,129 +704,170 @@
       <title>Setup Project Foundation and Database</title>
       <tasks>
         - Initialize Express server with SQLite database
-        - Set up Claude API client with streaming support
-        - Create database schema with migrations
-        - Implement authentication endpoints
-        - Set up basic CORS and middleware
-        - Create health check endpoint
+        - Set up Claude API client for AI features
+        - Create database schema with all tables
+        - Implement user authentication endpoints
+        - Set up CORS, middleware, and error handling
+        - Create seed data with default categories
       </tasks>
     </step>
 
     <step number="2">
-      <title>Build Core Chat Interface</title>
+      <title>Build Core Transaction System</title>
       <tasks>
-        - Create main layout with sidebar and chat area
-        - Implement message display with markdown rendering
-        - Add streaming message support with SSE
-        - Build input area with auto-resize textarea
-        - Add code block syntax highlighting
-        - Implement stop generation functionality
-        - Add typing indicators and loading states
+        - Create transaction CRUD endpoints
+        - Build transaction list component with virtual scrolling
+        - Implement filtering and search
+        - Add transaction form with validation
+        - Create amount input with formatting
+        - Build category selector component
+        - Implement transaction editing
       </tasks>
     </step>
 
     <step number="3">
-      <title>Conversation Management</title>
+      <title>Implement AI Categorization</title>
       <tasks>
-        - Create conversation list in sidebar
-        - Implement new conversation creation
-        - Add conversation switching
-        - Build conversation rename functionality
-        - Implement delete with confirmation
-        - Add conversation search
-        - Create conversation grouping by date
+        - Create Claude API integration for categorization
+        - Build categorization prompt engineering
+        - Implement confidence scoring
+        - Create category suggestions UI
+        - Build user correction feedback system
+        - Implement bulk categorization endpoint
+        - Create AI category mapping storage
       </tasks>
     </step>
 
     <step number="4">
-      <title>Artifacts System</title>
+      <title>Account Management</title>
       <tasks>
-        - Build artifact detection from Claude responses
-        - Create artifact rendering panel
-        - Implement code artifact viewer
-        - Add HTML/SVG live preview
-        - Build artifact editing interface
-        - Add artifact versioning
-        - Implement full-screen artifact view
+        - Build account CRUD endpoints
+        - Create account list and cards UI
+        - Implement account type configuration
+        - Add balance tracking and reconciliation
+        - Build transfer between accounts
+        - Create account filtering for transactions
       </tasks>
     </step>
 
     <step number="5">
-      <title>Projects and Organization</title>
+      <title>Budget Management System</title>
       <tasks>
-        - Create projects CRUD endpoints
-        - Build project selector UI
-        - Implement project-specific custom instructions
-        - Add folder system for conversations
-        - Create drag-and-drop organization
-        - Build project settings panel
+        - Create budget CRUD endpoints
+        - Build budget list with progress bars
+        - Implement budget vs actual calculation
+        - Add AI budget suggestions
+        - Create budget alerts system
+        - Build rollover functionality
+        - Create budget history tracking
       </tasks>
     </step>
 
     <step number="6">
-      <title>Advanced Features</title>
+      <title>Dashboard and Visualizations</title>
       <tasks>
-        - Add model selection dropdown
-        - Implement temperature and parameter controls
-        - Build image upload functionality
-        - Create message editing and regeneration
-        - Add conversation branching
-        - Implement export functionality
+        - Build main dashboard layout
+        - Create financial overview cards
+        - Implement spending by category chart
+        - Add income vs expense charts
+        - Build trend line visualizations
+        - Create budget progress widgets
+        - Add recent transactions widget
       </tasks>
     </step>
 
     <step number="7">
-      <title>Settings and Customization</title>
+      <title>Savings Goals</title>
       <tasks>
-        - Build settings modal with tabs
-        - Implement theme switching (light/dark)
-        - Add custom instructions management
-        - Create keyboard shortcuts
-        - Build prompt library
-        - Add usage tracking dashboard
+        - Create goals CRUD endpoints
+        - Build goal cards with progress
+        - Implement contribution tracking
+        - Add goal milestone notifications
+        - Create projected completion calculator
+        - Build goal allocation from transactions
       </tasks>
     </step>
 
     <step number="8">
-      <title>Sharing and Collaboration</title>
+      <title>Recurring Transactions and Import</title>
       <tasks>
-        - Implement conversation sharing with tokens
-        - Create public share view
-        - Add export to multiple formats
-        - Build prompt templates
-        - Create example conversations
+        - Build recurring transaction system
+        - Implement AI pattern detection
+        - Create bill reminders
+        - Build CSV import with mapping
+        - Add duplicate detection
+        - Implement batch AI categorization
+        - Create import preview UI
       </tasks>
     </step>
 
     <step number="9">
+      <title>AI Insights and Natural Language</title>
+      <tasks>
+        - Build AI insights generation
+        - Implement natural language query parsing
+        - Create spending analysis reports
+        - Add anomaly detection
+        - Build recommendation engine
+        - Create insights dashboard widget
+      </tasks>
+    </step>
+
+    <step number="10">
+      <title>Reports and Analytics</title>
+      <tasks>
+        - Create comprehensive reports endpoints
+        - Build spending reports UI
+        - Implement cash flow report
+        - Add net worth tracking
+        - Create custom date range reports
+        - Build PDF export functionality
+        - Add year-end summary
+      </tasks>
+    </step>
+
+    <step number="11">
+      <title>Notifications and Alerts</title>
+      <tasks>
+        - Build notification system
+        - Implement budget alerts
+        - Add bill reminders
+        - Create notification preferences
+        - Build notification center UI
+        - Add email notification hooks (mock)
+      </tasks>
+    </step>
+
+    <step number="12">
       <title>Polish and Optimization</title>
       <tasks>
-        - Optimize for mobile responsiveness
-        - Add command palette (Cmd+K)
-        - Implement comprehensive keyboard navigation
-        - Add onboarding flow
-        - Create accessibility improvements
-        - Performance optimization and caching
+        - Optimize mobile responsiveness
+        - Add keyboard shortcuts
+        - Implement dark mode
+        - Add accessibility features
+        - Performance optimization
+        - Create onboarding flow
+        - Add settings and preferences
       </tasks>
     </step>
   </implementation_steps>
 
   <success_criteria>
     <functionality>
-      - Streaming chat responses work smoothly
-      - Artifact detection and rendering accurate
-      - Conversation management intuitive and reliable
-      - Project organization clear and useful
-      - Image upload and display working
-      - All CRUD operations functional
+      - AI categorization accuracy above 85%
+      - Transaction CRUD operations fast and reliable
+      - Budget tracking accurate and real-time
+      - Import handles common CSV formats
+      - Natural language queries return relevant results
+      - All account types properly managed
     </functionality>
 
     <user_experience>
-      - Interface matches claude.ai design language
-      - Responsive on all device sizes
-      - Smooth animations and transitions
-      - Fast response times and minimal lag
-      - Intuitive navigation and workflows
+      - Transaction entry in under 10 seconds
+      - Dashboard loads in under 2 seconds
+      - AI categorization feels instant (<1s)
+      - Intuitive navigation without training
+      - Mobile experience fully functional
       - Clear feedback for all actions
     </user_experience>
 
@@ -664,18 +875,27 @@
       - Clean, maintainable code structure
       - Proper error handling throughout
       - Secure API key management
-      - Optimized database queries
-      - Efficient streaming implementation
-      - Comprehensive testing coverage
+      - Optimized database queries with indexes
+      - Efficient AI API usage (batching)
+      - Data validation on all inputs
     </technical_quality>
 
     <design_polish>
-      - Consistent with claude.ai visual design
-      - Beautiful typography and spacing
-      - Smooth animations and micro-interactions
+      - Consistent finance-focused visual design
+      - Clear income/expense color coding
+      - Beautiful charts and visualizations
+      - Smooth animations and transitions
       - Excellent contrast and accessibility
-      - Professional, polished appearance
       - Dark mode fully implemented
     </design_polish>
+
+    <ai_features>
+      - Accurate merchant recognition
+      - Learning from user corrections
+      - Helpful spending insights
+      - Reliable pattern detection
+      - Natural conversation for queries
+      - Appropriate confidence indicators
+    </ai_features>
   </success_criteria>
 </project_specification>
