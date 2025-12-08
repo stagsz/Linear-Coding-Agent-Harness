@@ -11,5 +11,11 @@
     ],
     "deny": [],
     "ask": []
+  },
+  "plugins": {
+    "enabled": [
+      "frontend-design",
+      "backend-development"
+    ]
   }
 }
