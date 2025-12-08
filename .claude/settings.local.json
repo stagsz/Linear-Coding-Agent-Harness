@@ -5,7 +5,9 @@
       "mcp__MCP_DOCKER__mcp-add",
       "mcp__MCP_DOCKER__list_teams",
       "mcp__MCP_DOCKER__list_issues",
-      "mcp__MCP_DOCKER__list_projects"
+      "mcp__MCP_DOCKER__list_projects",
+      "mcp__MCP_DOCKER__get_user",
+      "mcp__MCP_DOCKER__create_issue"
     ],
     "deny": [],
     "ask": []
