@@ -7,7 +7,11 @@
       "mcp__MCP_DOCKER__list_issues",
       "mcp__MCP_DOCKER__list_projects",
       "mcp__MCP_DOCKER__get_user",
-      "mcp__MCP_DOCKER__create_issue"
+      "mcp__MCP_DOCKER__create_issue",
+      "mcp__MCP_DOCKER__resolve-library-id",
+      "mcp__MCP_DOCKER__get-library-docs",
+      "mcp__MCP_DOCKER__web_search_exa",
+      "mcp__MCP_DOCKER__submit_app_requirements"
     ],
     "deny": [],
     "ask": []
