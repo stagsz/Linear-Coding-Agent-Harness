@@ -7,15 +7,33 @@
     intelligent budget recommendations. Features include multi-account management, budget tracking, savings
     goals, receipt scanning, and natural language queries for financial insights. The UI should be clean,
     modern, and finance-focused using Tailwind CSS with excellent data visualization and responsive design.
+    
+    **Use the frontend-design plugin throughout development for component generation, responsive layouts, 
+    and design system consistency.**
+    
+    **IMPORTANT: No emojis should be used anywhere in the application. Use icon libraries (Lucide, Heroicons) 
+    for all visual indicators instead.**
   </overview>
 
   <technology_stack>
     <api_key>
         You can use an API key located at /tmp/api-key for testing. You will not be allowed to read this file, but you can reference it in code.
     </api_key>
+    <claude_plugins>
+      <frontend_design>
+        Leverage the frontend-design plugin for:
+        - UI component generation with proper structure
+        - Responsive layout implementation
+        - Accessibility features (ARIA labels, keyboard navigation)
+        - Dark mode implementation
+        - Design system consistency
+        - Form components with validation UI
+      </frontend_design>
+    </claude_plugins>
     <frontend>
       <framework>React with Vite</framework>
-      <styling>Tailwind CSS (via CDN)</styling>
+      <styling>Tailwind CSS (via CDN) - use frontend-design plugin for class organization</styling>
+      <icons>Lucide React or Heroicons (NO emojis anywhere in the app)</icons>
       <state_management>React hooks and context</state_management>
       <routing>React Router for navigation</routing>
       <charts>Recharts for financial visualizations</charts>
@@ -41,6 +59,7 @@
       - Frontend dependencies pre-installed via pnpm
       - Backend code goes in /server directory
       - Install backend dependencies as needed
+      - Frontend-design plugin is installed and ready to use
     </environment_setup>
   </prerequisites>
 
@@ -169,7 +188,7 @@
     <categories_management>
       - Default category hierarchy (Income, Housing, Transportation, etc.)
       - Custom category creation
-      - Category icons selection (emoji or icon library)
+      - Category icons selection (icon library only - Lucide/Heroicons, NO emojis)
       - Category color assignment
       - Sub-categories support
       - Merge categories
@@ -495,6 +514,29 @@
   </api_endpoints>
 
   <design_system>
+    <icon_guidelines>
+      **CRITICAL: NO EMOJIS ALLOWED IN THIS APPLICATION**
+      - Use Lucide React or Heroicons for ALL icons
+      - Category icons: Use appropriate Lucide icons (Home, Car, ShoppingBag, Utensils, etc.)
+      - Action icons: Use consistent icon family throughout
+      - Status indicators: Use colored dots or icon-based indicators, never emoji
+      - Account type icons: Building, CreditCard, Wallet, PiggyBank, TrendingUp
+      - Goal icons: Target, Flag, Gift, Plane, ShoppingCart
+      - Navigation icons: Use standard icon patterns
+    </icon_guidelines>
+    
+    <plugin_usage>
+      **IMPORTANT: Use the frontend-design plugin to generate all UI components following this design system.**
+      The plugin should be consulted for:
+      - Component structure and semantic HTML
+      - Tailwind CSS class organization and patterns
+      - Responsive breakpoint implementation
+      - Accessibility attributes (ARIA labels, roles, keyboard handlers)
+      - Dark mode class variants
+      - Animation and transition patterns
+      - Form validation UI patterns
+    </plugin_usage>
+    
     <color_palette>
       <finance_colors>
         - Income/Positive: Emerald-500 (#10B981), Emerald-600 (#059669)
@@ -541,36 +583,40 @@
 
     <components>
       <transaction_row>
-        - Category icon with color background
+        - Category Lucide icon with color background
         - Merchant/description text (truncate on overflow)
         - Category pill badge
         - Date in relative format ("Today", "Yesterday", "Dec 5")
         - Amount right-aligned with +/- color coding
         - Hover: subtle background, show quick actions
+        **USE PLUGIN: Generate with proper accessibility and responsive behavior**
       </transaction_row>
 
       <budget_progress>
-        - Category name with icon
+        - Category name with Lucide icon
         - Progress bar with gradient fill
         - Spent vs Budget text
         - Percentage badge (green/yellow/red based on usage)
         - Click to expand for details
+        **USE PLUGIN: Generate with animation patterns and ARIA progress attributes**
       </budget_progress>
 
       <account_card>
-        - Account icon and name
+        - Account icon (Lucide icon based on type) and name
         - Institution name (subtle)
         - Current balance (large, prominent)
         - Account type badge
         - Last updated timestamp
+        **USE PLUGIN: Generate with card patterns and hover states**
       </account_card>
 
       <goal_card>
-        - Goal name with icon
+        - Goal name with Lucide icon (Target, Flag, etc.)
         - Circular progress indicator
         - Current amount / Target amount
         - Days remaining or projected date
         - Quick contribute button
+        **USE PLUGIN: Generate with progress ring animation and accessible labels**
       </goal_card>
 
       <amount_input>
@@ -578,14 +624,16 @@
         - Numeric input with formatting
         - +/- toggle for income/expense
         - Real-time formatting (comma separators)
+        **USE PLUGIN: Generate with proper input validation UI**
       </amount_input>
 
       <category_selector>
         - Grouped by type (Income/Expense)
         - Search/filter categories
         - Recent categories section
-        - Icon + name display
+        - Lucide icon + name display (no emojis)
         - AI suggestion highlight
+        **USE PLUGIN: Generate with combobox pattern and keyboard navigation**
       </category_selector>
 
       <date_picker>
@@ -593,6 +641,7 @@
         - Quick options (Today, Yesterday, Last week)
         - Range selection for filters
         - Month/year navigation
+        **USE PLUGIN: Generate with focus management and ARIA datepicker**
       </date_picker>
 
       <charts>
@@ -601,6 +650,7 @@
         - Line chart: Trend over time
         - Donut chart: Budget utilization
         - Consistent color coding with categories
+        **USE PLUGIN: Generate containers with proper responsive behavior**
       </charts>
 
       <buttons>
@@ -609,6 +659,7 @@
         - Secondary: Border style with hover fill
         - Ghost: Text only with hover background
         - Icon buttons: Rounded with tooltips
+        **USE PLUGIN: Generate with consistent styling and focus states**
       </buttons>
 
       <cards>
@@ -617,7 +668,26 @@
         - Padding: p-4 to p-6
         - Header with title and actions
         - Hover state: slight lift
+        **USE PLUGIN: Generate with dark mode variants**
       </cards>
+
+      <modals>
+        - Centered overlay with backdrop
+        - Focus trap for accessibility
+        - Escape key to close
+        - Slide-up animation on mobile
+        - Scale animation on desktop
+        **USE PLUGIN: Generate with dialog pattern and focus management**
+      </modals>
+
+      <forms>
+        - Consistent label positioning
+        - Error states with messages
+        - Loading states for submit
+        - Field validation indicators
+        - Required field markers
+        **USE PLUGIN: Generate with proper form validation patterns**
+      </forms>
     </components>
 
     <animations>
@@ -627,7 +697,8 @@
       - Slide in for modals
       - Fade for notifications
       - Skeleton loaders for data
-      - Confetti for goal completion
+      - Success checkmark animation for goal completion (no confetti/emojis)
+      **USE PLUGIN: Implement following motion preference guidelines**
     </animations>
   </design_system>
 
@@ -700,6 +771,16 @@
   </key_interactions>
 
   <implementation_steps>
+    <plugin_integration>
+      **Throughout all implementation steps, actively use the frontend-design plugin to:**
+      - Generate component boilerplate with proper structure
+      - Implement responsive layouts following mobile-first approach
+      - Add accessibility features automatically
+      - Create consistent design patterns
+      - Implement dark mode variants efficiently
+      - Generate form validation UI
+    </plugin_integration>
+
     <step number="1">
       <title>Setup Project Foundation and Database</title>
       <tasks>
@@ -716,12 +797,12 @@
       <title>Build Core Transaction System</title>
       <tasks>
         - Create transaction CRUD endpoints
-        - Build transaction list component with virtual scrolling
-        - Implement filtering and search
-        - Add transaction form with validation
-        - Create amount input with formatting
-        - Build category selector component
-        - Implement transaction editing
+        - **USE PLUGIN: Build transaction list component with virtual scrolling**
+        - **USE PLUGIN: Implement filtering and search UI components**
+        - **USE PLUGIN: Add transaction form with validation and proper layout**
+        - **USE PLUGIN: Create amount input with formatting and accessibility**
+        - **USE PLUGIN: Build category selector component with proper UX**
+        - **USE PLUGIN: Implement transaction editing with plugin-generated modals**
       </tasks>
     </step>
 
@@ -731,7 +812,7 @@
         - Create Claude API integration for categorization
         - Build categorization prompt engineering
         - Implement confidence scoring
-        - Create category suggestions UI
+        - **USE PLUGIN: Create category suggestions UI with AI indicators**
         - Build user correction feedback system
         - Implement bulk categorization endpoint
         - Create AI category mapping storage
@@ -742,10 +823,10 @@
       <title>Account Management</title>
       <tasks>
         - Build account CRUD endpoints
-        - Create account list and cards UI
-        - Implement account type configuration
+        - **USE PLUGIN: Create account list and cards UI**
+        - **USE PLUGIN: Implement account type configuration forms**
         - Add balance tracking and reconciliation
-        - Build transfer between accounts
+        - **USE PLUGIN: Build transfer modal between accounts**
         - Create account filtering for transactions
       </tasks>
     </step>
@@ -754,10 +835,10 @@
       <title>Budget Management System</title>
       <tasks>
         - Create budget CRUD endpoints
-        - Build budget list with progress bars
+        - **USE PLUGIN: Build budget list with progress bars**
         - Implement budget vs actual calculation
         - Add AI budget suggestions
-        - Create budget alerts system
+        - **USE PLUGIN: Create budget alerts notification UI**
         - Build rollover functionality
         - Create budget history tracking
       </tasks>
@@ -766,13 +847,13 @@
     <step number="6">
       <title>Dashboard and Visualizations</title>
       <tasks>
-        - Build main dashboard layout
-        - Create financial overview cards
-        - Implement spending by category chart
-        - Add income vs expense charts
-        - Build trend line visualizations
-        - Create budget progress widgets
-        - Add recent transactions widget
+        - **USE PLUGIN: Build responsive dashboard layout with grid system**
+        - **USE PLUGIN: Create financial overview cards with consistent styling**
+        - **USE PLUGIN: Implement chart containers with proper responsive behavior**
+        - Add income vs expense charts within plugin-generated layouts
+        - **USE PLUGIN: Build trend visualizations with accessible labels**
+        - **USE PLUGIN: Create budget progress widgets with proper structure**
+        - **USE PLUGIN: Add recent transactions widget with optimized mobile view**
       </tasks>
     </step>
 
@@ -780,11 +861,11 @@
       <title>Savings Goals</title>
       <tasks>
         - Create goals CRUD endpoints
-        - Build goal cards with progress
+        - **USE PLUGIN: Build goal cards with circular progress indicators**
         - Implement contribution tracking
-        - Add goal milestone notifications
+        - **USE PLUGIN: Add goal milestone notification UI**
         - Create projected completion calculator
-        - Build goal allocation from transactions
+        - **USE PLUGIN: Build goal allocation modal from transactions**
       </tasks>
     </step>
 
@@ -793,11 +874,11 @@
       <tasks>
         - Build recurring transaction system
         - Implement AI pattern detection
-        - Create bill reminders
-        - Build CSV import with mapping
-        - Add duplicate detection
+        - **USE PLUGIN: Create bill reminders notification cards**
+        - **USE PLUGIN: Build CSV import wizard with column mapping UI**
+        - Add duplicate detection with preview
         - Implement batch AI categorization
-        - Create import preview UI
+        - **USE PLUGIN: Create import preview UI with validation feedback**
       </tasks>
     </step>
 
@@ -806,10 +887,10 @@
       <tasks>
         - Build AI insights generation
         - Implement natural language query parsing
-        - Create spending analysis reports
+        - **USE PLUGIN: Create spending analysis report layouts**
         - Add anomaly detection
         - Build recommendation engine
-        - Create insights dashboard widget
+        - **USE PLUGIN: Create insights dashboard widget with expandable details**
       </tasks>
     </step>
 
@@ -817,12 +898,12 @@
       <title>Reports and Analytics</title>
       <tasks>
         - Create comprehensive reports endpoints
-        - Build spending reports UI
-        - Implement cash flow report
+        - **USE PLUGIN: Build spending reports UI with chart layouts**
+        - **USE PLUGIN: Implement cash flow report with proper structure**
         - Add net worth tracking
-        - Create custom date range reports
+        - **USE PLUGIN: Create custom date range picker for reports**
         - Build PDF export functionality
-        - Add year-end summary
+        - **USE PLUGIN: Add year-end summary cards and visualizations**
       </tasks>
     </step>
 
@@ -830,10 +911,10 @@
       <title>Notifications and Alerts</title>
       <tasks>
         - Build notification system
-        - Implement budget alerts
-        - Add bill reminders
-        - Create notification preferences
-        - Build notification center UI
+        - **USE PLUGIN: Implement budget alerts toast notifications**
+        - **USE PLUGIN: Add bill reminders with action buttons**
+        - **USE PLUGIN: Create notification preferences settings form**
+        - **USE PLUGIN: Build notification center slide-over panel**
         - Add email notification hooks (mock)
       </tasks>
     </step>
@@ -841,13 +922,13 @@
     <step number="12">
       <title>Polish and Optimization</title>
       <tasks>
-        - Optimize mobile responsiveness
-        - Add keyboard shortcuts
-        - Implement dark mode
-        - Add accessibility features
+        - **USE PLUGIN: Optimize mobile responsiveness across all components**
+        - **USE PLUGIN: Add keyboard shortcuts with accessibility guidance**
+        - **USE PLUGIN: Implement dark mode using theme switching patterns**
+        - **USE PLUGIN: Add comprehensive accessibility features (ARIA, focus management)**
         - Performance optimization
-        - Create onboarding flow
-        - Add settings and preferences
+        - **USE PLUGIN: Create onboarding flow with step-by-step UI**
+        - **USE PLUGIN: Add settings forms with proper validation UI**
       </tasks>
     </step>
   </implementation_steps>
@@ -881,12 +962,12 @@
     </technical_quality>
 
     <design_polish>
-      - Consistent finance-focused visual design
+      - Consistent finance-focused visual design **generated via plugin**
       - Clear income/expense color coding
       - Beautiful charts and visualizations
-      - Smooth animations and transitions
-      - Excellent contrast and accessibility
-      - Dark mode fully implemented
+      - Smooth animations and transitions **following plugin patterns**
+      - Excellent contrast and accessibility **validated by plugin**
+      - Dark mode fully implemented **using plugin theme system**
     </design_polish>
 
     <ai_features>
