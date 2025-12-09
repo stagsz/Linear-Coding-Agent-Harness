@@ -11,8 +11,14 @@
     **Use the frontend-design plugin throughout development for component generation, responsive layouts, 
     and design system consistency.**
     
-    **IMPORTANT: No emojis should be used anywhere in the application. Use icon libraries (Lucide, Heroicons) 
+    **IMPORTANT: No emojis should be used anywhere in the application. Use icon libraries (Lucide, Heroicons)
     for all visual indicators instead.**
+    
+    **LOCALIZATION: The application is configured for Swedish users with:**
+    - Default currency: SEK (Swedish Krona)
+    - Date format: Swedish (YYYY-MM-DD)
+    - Number format: Swedish (space as thousands separator, comma as decimal)
+    - Language: Swedish (sv-SE locale)
   </overview>
 
   <technology_stack>
@@ -37,7 +43,7 @@
       <state_management>React hooks and context</state_management>
       <routing>React Router for navigation</routing>
       <charts>Recharts for financial visualizations</charts>
-      <date_handling>date-fns for date manipulation</date_handling>
+      <date_handling>date-fns for date manipulation with sv-SE locale</date_handling>
       <port>Only launch on port {frontend_port}</port>
     </frontend>
     <backend>
@@ -88,9 +94,71 @@
       - Anomaly detection for unusual spending
       - Natural language queries ("How much did I spend on coffee this month?")
       - AI-powered spending insights and recommendations
-      - Receipt OCR with automatic data extraction
       - Category mapping rules management
     </ai_expense_categorization>
+
+    <receipt_scanning_ocr>
+      **IMPLEMENTED: Advanced receipt OCR with Claude Vision API**
+
+      <camera_photo_capture>
+        - Mobile camera integration for live photo capture
+        - Desktop file upload for receipt images
+        - Supports JPG, PNG, HEIC image formats
+        - No emoji indicators - use Lucide Camera/Upload icons only
+      </camera_photo_capture>
+
+      <metadata_extraction>
+        **Automatically extracts the following from receipts:**
+        - Merchant name (e.g., "ICA Supermarket", "Coop", "H&M")
+        - Total amount (as decimal number)
+        - Purchase date (YYYY-MM-DD format)
+        - Currency (SEK, USD, EUR auto-detected)
+        - Individual line items with prices
+        - AI-suggested category based on merchant type
+        - Confidence level (high/medium/low)
+      </metadata_extraction>
+
+      <swedish_store_optimization>
+        **Optimized for Swedish retail chains:**
+        - Grocery: ICA, Coop, Willys, Hemköp, Lidl, City Gross
+        - Fashion: H&M, Zara, KappAhl, Lindex
+        - Home: IKEA, Jysk, Bauhaus
+        - Electronics: Elgiganten, Media Markt, Kjell & Company
+        - Gas: Circle K, OKQ8, Preem
+        - Restaurants: Max, McDonald's, Burger King
+        - Also works with international stores
+      </swedish_store_optimization>
+
+      <auto_fill_functionality>
+        - Merchant name → Description field
+        - Total amount → Amount field (SEK format: 123,45 kr)
+        - Date → Date field (YYYY-MM-DD)
+        - AI category → Auto-select matching category
+        - Line items → Optional Notes field
+        - Transaction type → Auto-set to Expense
+      </auto_fill_functionality>
+
+      <user_interface>
+        - Green "Scan Receipt" button in transaction modal (Lucide CameraIcon)
+        - "Take Photo" option (mobile camera) - Lucide Camera icon
+        - "Upload Photo" option (file picker) - Lucide Upload icon
+        - "Analyzing receipt..." loading state
+        - Success notification: "Receipt scanned!" / "Kvitto skannat!"
+        - Error handling with clear Swedish messages
+        - NO EMOJIS - use icon library only
+      </user_interface>
+
+      <technical_implementation>
+        - Backend endpoint: POST /api/ai/analyze-receipt
+        - Multer middleware for file uploads
+        - Claude Vision API integration
+        - Receipt image → Base64 encoding → Claude API
+        - Response parsing with structured metadata
+        - Frontend component: ReceiptScanner.jsx
+        - Integrated into Transactions modal
+        - Swedish/English translations
+      </technical_implementation>
+    </receipt_scanning_ocr>
 
     <transaction_management>
       - Add transactions manually (income/expense/transfer)
@@ -211,16 +279,17 @@
 
     <settings_preferences>
       - Theme selection (Light, Dark, Auto)
-      - Currency selection and formatting
-      - Date format preferences
-      - First day of week setting
+      - Currency selection and formatting (default: SEK - Swedish Krona)
+      - Date format preferences (default: YYYY-MM-DD, Swedish standard)
+      - Number format (default: Swedish - space thousands separator, comma decimal)
+      - First day of week setting (default: Monday)
       - Default account selection
       - AI categorization confidence threshold
       - Notification preferences
       - Data privacy settings
       - Export personal data
       - Delete account and data
-      - Language preferences
+      - Language preferences (default: Swedish/sv-SE)
     </settings_preferences>
 
     <accessibility>
@@ -253,7 +322,7 @@
         - avatar_url
         - created_at
         - last_login
-        - preferences (JSON: theme, currency, date_format, language)
+        - preferences (JSON: theme, currency='SEK', date_format='sv-SE', language='sv-SE', number_format='sv-SE')
         - notification_settings (JSON)
       </users>
 
@@ -262,7 +331,7 @@
         - user_id (FOREIGN KEY)
         - name
         - type (checking, savings, credit_card, cash, investment)
-        - currency
+        - currency (default: 'SEK')
         - starting_balance
         - current_balance
         - icon
@@ -296,7 +365,7 @@
         - category_id (FOREIGN KEY)
         - type (income, expense, transfer)
         - amount
-        - currency
+        - currency (default: 'SEK')
         - description
         - merchant_name
         - date
@@ -579,69 +648,78 @@
       - Body: font-normal, text-base
       - Amount Display: font-mono, tabular-nums
       - Small Text: text-sm, text-gray-600
+      <swedish_formatting>
+        - Currency: Display as "1 234,56 kr" (space thousands, comma decimal, kr suffix)
+        - Dates: YYYY-MM-DD format (e.g., "2025-12-09")
+        - Numbers: Use Swedish locale formatting (1 234,56 format)
+        - All monetary values prefixed/suffixed with "kr" not symbols
+      </swedish_formatting>
     </typography>
 
     <components>
       <transaction_row>
-        - Category Lucide icon with color background
+        - Category Lucide icon (NO EMOJIS) with color background
         - Merchant/description text (truncate on overflow)
         - Category pill badge
-        - Date in relative format ("Today", "Yesterday", "Dec 5")
-        - Amount right-aligned with +/- color coding
+        - Date in Swedish format ("Idag", "Igår", or "2025-12-09")
+        - Amount right-aligned in Swedish format (e.g., "1 234,56 kr") with +/- color coding
         - Hover: subtle background, show quick actions
-        **USE PLUGIN: Generate with proper accessibility and responsive behavior**
+        **USE PLUGIN: Generate with proper accessibility, Swedish locale, and responsive behavior**
       </transaction_row>
 
       <budget_progress>
-        - Category name with Lucide icon
+        - Category name with Lucide icon (NO EMOJIS)
         - Progress bar with gradient fill
-        - Spent vs Budget text
+        - Spent vs Budget text in Swedish format (e.g., "1 234 kr av 5 000 kr")
         - Percentage badge (green/yellow/red based on usage)
         - Click to expand for details
-        **USE PLUGIN: Generate with animation patterns and ARIA progress attributes**
+        **USE PLUGIN: Generate with animation patterns, Swedish formatting, and ARIA progress attributes**
       </budget_progress>
 
       <account_card>
-        - Account icon (Lucide icon based on type) and name
+        - Account icon (Lucide icon based on type, NO EMOJIS) and name
         - Institution name (subtle)
-        - Current balance (large, prominent)
+        - Current balance in Swedish format (large, prominent, e.g., "12 345,67 kr")
         - Account type badge
-        - Last updated timestamp
-        **USE PLUGIN: Generate with card patterns and hover states**
+        - Last updated timestamp in Swedish format
+        **USE PLUGIN: Generate with card patterns, Swedish locale, and hover states**
       </account_card>
 
       <goal_card>
-        - Goal name with Lucide icon (Target, Flag, etc.)
+        - Goal name with Lucide icon (Target, Flag, etc. - NO EMOJIS)
         - Circular progress indicator
-        - Current amount / Target amount
-        - Days remaining or projected date
+        - Current amount / Target amount in Swedish format (e.g., "5 000 kr / 10 000 kr")
+        - Days remaining in Swedish ("45 dagar kvar") or projected date (YYYY-MM-DD)
         - Quick contribute button
-        **USE PLUGIN: Generate with progress ring animation and accessible labels**
+        **USE PLUGIN: Generate with progress ring animation, Swedish formatting, and accessible labels**
       </goal_card>
 
       <amount_input>
-        - Currency symbol prefix
-        - Numeric input with formatting
+        - Currency display: "kr" suffix (Swedish format)
+        - Numeric input with Swedish formatting (space as thousands separator, comma as decimal)
         - +/- toggle for income/expense
-        - Real-time formatting (comma separators)
-        **USE PLUGIN: Generate with proper input validation UI**
+        - Real-time formatting following Swedish standards
+        - Example: "1 234,56 kr" for positive, "-1 234,56 kr" for negative
+        **USE PLUGIN: Generate with proper input validation UI and Swedish locale**
       </amount_input>
 
       <category_selector>
-        - Grouped by type (Income/Expense)
+        - Grouped by type (Inkomst/Utgift - Swedish labels)
         - Search/filter categories
         - Recent categories section
-        - Lucide icon + name display (no emojis)
+        - Lucide icon + name display (STRICTLY NO EMOJIS)
         - AI suggestion highlight
-        **USE PLUGIN: Generate with combobox pattern and keyboard navigation**
+        **USE PLUGIN: Generate with combobox pattern, Swedish labels, and keyboard navigation**
       </category_selector>
 
       <date_picker>
-        - Calendar popup
-        - Quick options (Today, Yesterday, Last week)
+        - Calendar popup with Swedish month names
+        - Quick options in Swedish ("Idag", "Igår", "Förra veckan")
         - Range selection for filters
-        - Month/year navigation
-        **USE PLUGIN: Generate with focus management and ARIA datepicker**
+        - Month/year navigation with Swedish locale
+        - Date display format: YYYY-MM-DD (ISO 8601)
+        - Week starts on Monday (Swedish standard)
+        **USE PLUGIN: Generate with focus management, Swedish locale (sv-SE), and ARIA datepicker**
       </date_picker>
 
       <charts>
@@ -786,23 +864,26 @@
       <tasks>
         - Initialize Express server with SQLite database
         - Set up Claude API client for AI features
-        - Create database schema with all tables
+        - Create database schema with all tables (currency defaults to 'SEK')
         - Implement user authentication endpoints
         - Set up CORS, middleware, and error handling
-        - Create seed data with default categories
+        - Create seed data with default categories (Swedish names)
+        - Configure date-fns with sv-SE locale for Swedish date formatting
+        - Set up Swedish number formatting utilities (space thousands, comma decimal)
+        - Initialize default user preferences for Swedish locale (SEK, sv-SE, YYYY-MM-DD)
       </tasks>
     </step>
 
     <step number="2">
       <title>Build Core Transaction System</title>
       <tasks>
-        - Create transaction CRUD endpoints
-        - **USE PLUGIN: Build transaction list component with virtual scrolling**
-        - **USE PLUGIN: Implement filtering and search UI components**
-        - **USE PLUGIN: Add transaction form with validation and proper layout**
-        - **USE PLUGIN: Create amount input with formatting and accessibility**
-        - **USE PLUGIN: Build category selector component with proper UX**
-        - **USE PLUGIN: Implement transaction editing with plugin-generated modals**
+        - Create transaction CRUD endpoints with SEK currency handling
+        - **USE PLUGIN: Build transaction list component with virtual scrolling and Swedish date/amount formatting**
+        - **USE PLUGIN: Implement filtering and search UI components with Swedish labels**
+        - **USE PLUGIN: Add transaction form with validation, Swedish labels, and proper layout**
+        - **USE PLUGIN: Create amount input with Swedish formatting (space thousands, comma decimal, 'kr' suffix)**
+        - **USE PLUGIN: Build category selector component with Swedish category names and Lucide icons (NO EMOJIS)**
+        - **USE PLUGIN: Implement transaction editing with plugin-generated modals using Swedish locale**
       </tasks>
     </step>
 
@@ -822,50 +903,50 @@
     <step number="4">
       <title>Account Management</title>
       <tasks>
-        - Build account CRUD endpoints
-        - **USE PLUGIN: Create account list and cards UI**
-        - **USE PLUGIN: Implement account type configuration forms**
-        - Add balance tracking and reconciliation
-        - **USE PLUGIN: Build transfer modal between accounts**
-        - Create account filtering for transactions
+        - Build account CRUD endpoints with SEK as default currency
+        - **USE PLUGIN: Create account list and cards UI with Swedish balance formatting**
+        - **USE PLUGIN: Implement account type configuration forms with Swedish labels**
+        - Add balance tracking and reconciliation in SEK format
+        - **USE PLUGIN: Build transfer modal between accounts with Swedish amount formatting**
+        - Create account filtering for transactions with Swedish UI text
       </tasks>
     </step>
 
     <step number="5">
       <title>Budget Management System</title>
       <tasks>
-        - Create budget CRUD endpoints
-        - **USE PLUGIN: Build budget list with progress bars**
-        - Implement budget vs actual calculation
-        - Add AI budget suggestions
-        - **USE PLUGIN: Create budget alerts notification UI**
+        - Create budget CRUD endpoints with SEK amounts
+        - **USE PLUGIN: Build budget list with progress bars and Swedish amount formatting**
+        - Implement budget vs actual calculation in SEK
+        - Add AI budget suggestions in SEK with Swedish context
+        - **USE PLUGIN: Create budget alerts notification UI with Swedish messages**
         - Build rollover functionality
-        - Create budget history tracking
+        - Create budget history tracking with Swedish date formatting
       </tasks>
     </step>
 
     <step number="6">
       <title>Dashboard and Visualizations</title>
       <tasks>
-        - **USE PLUGIN: Build responsive dashboard layout with grid system**
-        - **USE PLUGIN: Create financial overview cards with consistent styling**
-        - **USE PLUGIN: Implement chart containers with proper responsive behavior**
-        - Add income vs expense charts within plugin-generated layouts
-        - **USE PLUGIN: Build trend visualizations with accessible labels**
-        - **USE PLUGIN: Create budget progress widgets with proper structure**
-        - **USE PLUGIN: Add recent transactions widget with optimized mobile view**
+        - **USE PLUGIN: Build responsive dashboard layout with grid system and Swedish labels**
+        - **USE PLUGIN: Create financial overview cards with consistent styling and SEK formatting**
+        - **USE PLUGIN: Implement chart containers with Swedish axis labels and proper responsive behavior**
+        - Add income vs expense charts with SEK amounts and Swedish month names
+        - **USE PLUGIN: Build trend visualizations with accessible Swedish labels**
+        - **USE PLUGIN: Create budget progress widgets with Swedish text and SEK formatting**
+        - **USE PLUGIN: Add recent transactions widget with Swedish dates and optimized mobile view**
       </tasks>
     </step>
 
     <step number="7">
       <title>Savings Goals</title>
       <tasks>
-        - Create goals CRUD endpoints
-        - **USE PLUGIN: Build goal cards with circular progress indicators**
-        - Implement contribution tracking
-        - **USE PLUGIN: Add goal milestone notification UI**
-        - Create projected completion calculator
-        - **USE PLUGIN: Build goal allocation modal from transactions**
+        - Create goals CRUD endpoints with SEK amounts
+        - **USE PLUGIN: Build goal cards with circular progress indicators and Swedish amount formatting**
+        - Implement contribution tracking in SEK
+        - **USE PLUGIN: Add goal milestone notification UI with Swedish messages**
+        - Create projected completion calculator with Swedish date formatting
+        - **USE PLUGIN: Build goal allocation modal from transactions with Swedish labels**
       </tasks>
     </step>
 
@@ -923,12 +1004,14 @@
       <title>Polish and Optimization</title>
       <tasks>
         - **USE PLUGIN: Optimize mobile responsiveness across all components**
-        - **USE PLUGIN: Add keyboard shortcuts with accessibility guidance**
+        - **USE PLUGIN: Add keyboard shortcuts with accessibility guidance and Swedish tooltips**
         - **USE PLUGIN: Implement dark mode using theme switching patterns**
-        - **USE PLUGIN: Add comprehensive accessibility features (ARIA, focus management)**
-        - Performance optimization
-        - **USE PLUGIN: Create onboarding flow with step-by-step UI**
-        - **USE PLUGIN: Add settings forms with proper validation UI**
+        - **USE PLUGIN: Add comprehensive accessibility features (ARIA, focus management) with Swedish ARIA labels**
+        - Performance optimization with locale-aware number/date formatting
+        - **USE PLUGIN: Create onboarding flow with step-by-step UI in Swedish**
+        - **USE PLUGIN: Add settings forms with proper validation UI and Swedish locale defaults (SEK, sv-SE, YYYY-MM-DD)**
+        - Verify all components use Lucide icons only (NO EMOJIS anywhere)
+        - Test all Swedish formatting: dates (YYYY-MM-DD), amounts (1 234,56 kr), numbers (space thousands, comma decimal)
       </tasks>
     </step>
   </implementation_steps>
